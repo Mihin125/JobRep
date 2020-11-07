@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping
 public class OfferController {
     @Autowired
@@ -27,7 +27,7 @@ public class OfferController {
         return offerService.findById(id);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public List<Offer> searchOffer(@RequestBody SearchOfferDto filter){
         return offerService.searchOffer(filter);
     }

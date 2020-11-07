@@ -1,0 +1,16 @@
+insert into user values(2,0713344443,"pass","user",1);
+insert into user values(3,071334543,"psass","user1",1);
+insert into user values(4,0713347443,"ptass","user2",1);
+insert into user values(5,07133485443,"prass","user3",1);
+insert into user values(1,0713344443,"pass4","user1",1);
+
+
+insert into district values (1,"Colombo");
+insert into district values (2,"Kalutara");
+insert into district values (3,"Gampaha");
+ 
+insert into location values (1,"Nugegoda",1);
+insert into location values (2,"Kalutara",2);
+
+insert into offer values (1,1,1,07710772,564,"desc","name","photo",34.5,5,1);
+insert into offer values (2,1,1,07710772,564,"desc","name","photo",3445.5,5,1);

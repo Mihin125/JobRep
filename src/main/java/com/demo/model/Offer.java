@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Offer {
     @Id
     @GeneratedValue
-    private int offerId;
+    private long offerId;
     private String modelName;
     private String description;
     @Enumerated
@@ -24,6 +24,5 @@ public class Offer {
     private int contactNumber2;
     private String photo;
     private int viewCount;
-
 
 }
