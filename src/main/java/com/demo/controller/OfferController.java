@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.dto.SaveOfferDto;
 import com.demo.dto.SearchOfferDto;
 import com.demo.model.Offer;
 import com.demo.service.OfferService;
@@ -12,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("imania/api/offer")
 public class OfferController {
     @Autowired
     OfferService offerService;
 
     @PostMapping()
-    public HttpStatus saveOffer(@RequestBody Offer offer){
-        return offerService.saveOffer(offer);
+    public HttpStatus saveOffer(@RequestBody SaveOfferDto offerDto){
+        return offerService.saveOffer(offerDto);
     }
 
     @GetMapping("/{id}")

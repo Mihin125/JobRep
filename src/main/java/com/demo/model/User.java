@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 public class User {
     @Id
     @GeneratedValue
-    long userId;
+    long id;
     String username;
     String password;
     @OneToOne

@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.dto.UserSignUpDto;
 import com.demo.model.User;
 import com.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/sign-up")
-    public HttpStatus signUp(@RequestBody User user){
+    public HttpStatus signUp(@RequestBody UserSignUpDto user){
         return userService.signUp(user);
     }
 

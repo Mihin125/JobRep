@@ -14,4 +14,7 @@ public class LocationService {
         locationRepository.save(location);
     }
 
+    public Location findLocationByDistrictAndCity(long districtId,long citId){
+        return locationRepository.findByDistrictaAndCity(districtId,citId);
+    }
 }

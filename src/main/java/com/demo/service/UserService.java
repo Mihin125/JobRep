@@ -1,5 +1,6 @@
 package com.demo.service;
 
+import com.demo.dto.UserSignUpDto;
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,18 @@ public class UserService {
     @Autowired
     LocationService locationService;
 
-    public HttpStatus signUp(User user){
-        if(user.getUsername()!=null &&
-            user.getLocation()!=null &&
-            user.getContactNumber()!=0 &&
-            user.getPassword()!= null ) {
-            locationService.saveLocation(user.getLocation());
+    public HttpStatus signUp(UserSignUpDto userDto){
+        if(userDto.getUsername()!=null &&
+            userDto.getDistrictId()!=0 &&
+            userDto.getCityId() != 0 &&
+            userDto.getContactNumber()!=0 &&
+            userDto.getPassword()!= null ) {
+
+            User user=new User();
+            user.setUsername(userDto.getUsername());
+            user.setLocation(locationService.findLocationByDistrictAndCity(userDto.getDistrictId(),userDto.getCityId()));
+            user.setPassword(userDto.getPassword());
+            user.setContactNumber(userDto.getContactNumber());
             if (userRepository.save(user) != null) {
                 return HttpStatus.OK;
             }

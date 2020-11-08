@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 public class City {
     @Id
     @GeneratedValue
-    long cityId;
+    long id;
     String city;
     @ManyToOne
     District district;

@@ -15,8 +15,8 @@ import java.util.List;
 public class District {
     @Id
     @GeneratedValue
-    long districtId;
+    long id;
     String districtName;
-//    @OneToMany(mappedBy = "district")
-//    List<City> cities;
+    @OneToMany(mappedBy = "district")
+    List<City> cities;
 }

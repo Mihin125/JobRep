@@ -11,12 +11,10 @@ import javax.persistence.*;
 public class Location {
     @Id
     @GeneratedValue
-    long locationId;
+    long id;
     @ManyToOne
     District district;
-    String city;
-//    @ManyToOne
-//    City city;
-//    @OneToOne(mappedBy = "location")
-//    Offer offer;
+    @ManyToOne
+    City city;
+
 }
