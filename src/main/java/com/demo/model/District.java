@@ -1,5 +1,6 @@
 package com.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,10 @@ public class District {
     @GeneratedValue
     long id;
     String districtName;
+    @JsonIgnore
     @OneToMany(mappedBy = "district")
     List<City> cities;
+    @JsonIgnore
+    @OneToMany(mappedBy = "district")
+    List<Offer> offers;
 }

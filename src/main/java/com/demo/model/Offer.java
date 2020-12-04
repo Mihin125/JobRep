@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,8 +20,10 @@ public class Offer {
     private DeviceCategory category;
     private ConditionCategory conditionCategory;
     private double price;
+    @ManyToOne
+    private User user;
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     private Location location;
     private int contactNumber1;
     private int contactNumber2;
@@ -28,5 +31,35 @@ public class Offer {
     private int viewCount;
     private LocalDateTime postedDate;
     private OfferStatus offerStatus;
+    @JsonIgnore
+    @ManyToOne
+    private District district;
+    private boolean availability;
+    @OneToMany(mappedBy = "offer")
+    private List<ReportOffer> reports;
 
+    public Offer(long id, String modelName, String description, DeviceCategory category, ConditionCategory conditionCategory, double price, User user, Location location, int contactNumber1, int contactNumber2, String photo, int viewCount, LocalDateTime postedDate, OfferStatus offerStatus, District district, boolean availability) {
+        this.id = id;
+        this.modelName = modelName;
+        this.description = description;
+        this.category = category;
+        this.conditionCategory = conditionCategory;
+        this.price = price;
+        this.user = user;
+        List<Offer> offerList = user.getOffers();
+        offerList.add(this);
+        user.setOffers(offerList);
+        this.location = location;
+        this.contactNumber1 = contactNumber1;
+        this.contactNumber2 = contactNumber2;
+        this.photo = photo;
+        this.viewCount = viewCount;
+        this.postedDate = postedDate;
+        this.offerStatus = offerStatus;
+        this.district = district;
+        this.availability = availability;
+    }
+
+    public Offer() {
+    }
 }

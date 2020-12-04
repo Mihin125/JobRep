@@ -1,5 +1,5 @@
 package com.demo.model;
 
 public enum OfferStatus {
-    PENDING,ACCEPTED,REJECTED
+    PENDING,ACCEPTED,REJECTED,REPORTED
 }

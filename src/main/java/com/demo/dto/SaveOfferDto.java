@@ -2,6 +2,7 @@ package com.demo.dto;
 
 import com.demo.model.ConditionCategory;
 import com.demo.model.DeviceCategory;
+import com.demo.model.User;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -18,5 +19,6 @@ public class SaveOfferDto {
     private int contactNumber1;
     private int contactNumber2;
     private String photo;
+    private long user;
 
 }
