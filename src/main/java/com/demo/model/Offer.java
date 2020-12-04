@@ -34,11 +34,10 @@ public class Offer {
     @JsonIgnore
     @ManyToOne
     private District district;
-    private boolean availability;
     @OneToMany(mappedBy = "offer")
     private List<ReportOffer> reports;
 
-    public Offer(long id, String modelName, String description, DeviceCategory category, ConditionCategory conditionCategory, double price, User user, Location location, int contactNumber1, int contactNumber2, String photo, int viewCount, LocalDateTime postedDate, OfferStatus offerStatus, District district, boolean availability) {
+    public Offer(long id, String modelName, String description, DeviceCategory category, ConditionCategory conditionCategory, double price, User user, Location location, int contactNumber1, int contactNumber2, String photo, int viewCount, LocalDateTime postedDate, OfferStatus offerStatus, District district) {
         this.id = id;
         this.modelName = modelName;
         this.description = description;
@@ -57,7 +56,6 @@ public class Offer {
         this.postedDate = postedDate;
         this.offerStatus = offerStatus;
         this.district = district;
-        this.availability = availability;
     }
 
     public Offer() {

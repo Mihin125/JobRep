@@ -2,6 +2,7 @@ package com.demo.service;
 
 import com.demo.dto.UserSignUpDto;
 import com.demo.model.BlackList;
+import com.demo.model.Offer;
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class UserService {
     LocationService locationService;
     @Autowired
     BlackListService blackListService;
+    @Autowired
+    OfferService offerService;
 
     public HttpStatus signUp(UserSignUpDto userDto){
         User exisitingUser = findByEmail(userDto.getEmail());
@@ -70,7 +73,12 @@ public class UserService {
     public User findByEmail(String email){return  userRepository.findByEmail(email);}
 
     public void deleteUser(long userId){
-        userRepository.deleteById(userId);
+        User user = findById(userId);
+        userRepository.deleteFromUserReportedOffers(userId);
+        for (Offer offer: user.getOffers()) {
+            offerService.deleteOffer(offer.getId());
+        }
+        userRepository.delete(findById(userId));
     }
 
     public void banUser(long userId){

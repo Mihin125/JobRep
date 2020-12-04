@@ -108,9 +108,7 @@ public class OfferService {
         return offers;
     }
     public void deleteOffer(long offerId){
-        Offer offer = findById(offerId);
-        offer.setAvailability(false);
-        offerRepository.save(offer);
+        offerRepository.delete(findById(offerId));
 
     }
     public void acceptOffer(long offerId){
