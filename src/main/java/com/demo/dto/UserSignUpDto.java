@@ -19,5 +19,5 @@ public class UserSignUpDto {
     long cityId;
     int contactNumber;
     String email;
-    UserRole role;
+    List<Long> role;
 }

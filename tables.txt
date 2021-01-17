@@ -1,4 +1,5 @@
-insert into user values(2,0713344443,"pass","user",1);
+insert into user values(2,0713344443,"email","pass","user",1);
+$2y$12$EIVONUBPdqma7lrSmc5feeUwQi8Cce3qxGolEQrqhz2nrfedWmW7S             === pass
 insert into user values(3,071334543,"psass","user1",1);
 insert into user values(4,0713347443,"ptass","user2",1);
 insert into user values(5,0713348544,"prass","user3",1);
@@ -20,3 +21,5 @@ insert into location values (3,3,3);
 insert into offer values (1,1,1,07710772,564,"desc","name","photo",34.5,5,1);
 insert into offer values (2,1,1,0774372,564,"desc","name1","photo",3445.5,5,1);
 insert into offer values (3,1,1,0723772,564,"desc","name2","photo",34645,5,1);
+
+insert into user_role(id,name) values (1,'ROLE_ADMIN'),(2,'ROLE_MANAGER'),(3,'ROLE_USER');

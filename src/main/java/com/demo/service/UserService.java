@@ -1,14 +1,18 @@
 package com.demo.service;
 
+import com.demo.Authentication.UserRole;
 import com.demo.dto.UserSignUpDto;
 import com.demo.model.BlackList;
 import com.demo.model.Offer;
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -20,6 +24,8 @@ public class UserService {
     BlackListService blackListService;
     @Autowired
     OfferService offerService;
+    @Autowired
+    UserRoleService userRoleService;
 
     public HttpStatus signUp(UserSignUpDto userDto){
         User exisitingUser = findByEmail(userDto.getEmail());
@@ -34,7 +40,7 @@ public class UserService {
             User user=new User();
             user.setUsername(userDto.getUsername());
             user.setLocation(locationService.findLocationByDistrictAndCity(userDto.getDistrictId(),userDto.getCityId()));
-            user.setRole(userDto.getRole());
+            user.setRoles(userDto.getRole().stream().map(x->userRoleService.findById(x)).collect(Collectors.toList()));
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder(12);
             String password =bCryptPasswordEncoder.encode(userDto.getPassword());
             user.setPassword(password);

@@ -22,9 +22,12 @@ public class User {
     @ManyToOne
     private Location location;
     private int contactNumber;
-    private UserRole role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+    joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")})
+    private List<UserRole> roles;
     private String email;
-    //@JsonIgnore
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Offer> offers;
