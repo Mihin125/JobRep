@@ -1,7 +1,4 @@
 package com.demo.repository;
 
-import com.demo.Authentication.UserRole;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface UserRoleRepository extends JpaRepository<UserRole,Long> {
+public interface RoleRepository {
 }
