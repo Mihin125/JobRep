@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/94mart/offer")
+@RequestMapping("94mart/offer")
 public class OfferController {
     @Autowired
     OfferService offerService;
@@ -34,8 +34,11 @@ public class OfferController {
     }
 
     @PutMapping("/update/{offerId}")
-    public HttpStatus updateOffer(@PathVariable long offerId,@RequestBody SaveOfferDto updateOfferDto){
-    return offerService.updateOffer(offerId,updateOfferDto);
+    public HttpStatus updateOffer(@PathVariable long offerId,@RequestBody SaveOfferDto updateOfferDto){ return offerService.updateOffer(offerId,updateOfferDto);
+    }
+
+    @GetMapping("/{userId}")
+    public List<Offer> getOffersByUserId(@PathVariable long userId){ return offerService.getOfferByUserId(userId);
     }
 
     @DeleteMapping("delete/{offerId}")
@@ -48,7 +51,7 @@ public class OfferController {
         return offerService.getAllOffers();
     }
 
-    @PutMapping("/admin/reportoffer/{offerId}")
+    @PutMapping("/report-offer/{offerId}")
     public void reportOffer(@PathVariable long offerId){
         offerService.reportOffer(offerId);
     }

@@ -18,4 +18,8 @@ public class RedListService {
     public List<RedList> getAll(){
         return redListRepository.findAll();
     }
+
+    public void deleteRedListUser(long userId){
+        redListRepository.deleteById(userId);
+    }
 }

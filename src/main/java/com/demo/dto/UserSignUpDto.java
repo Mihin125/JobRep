@@ -13,11 +13,12 @@ import java.util.Set;
 @Setter
 public class UserSignUpDto {
 
-    String username;
+    String firstName;
+    String LastName;
     String password;
-    long districtId;
-    long cityId;
-    int contactNumber;
+    long districtId; //String
+    long cityId; //String
+    String contactNumber;
     String email;
     List<Long> role;
 }

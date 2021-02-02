@@ -23,7 +23,7 @@ public class Offer {
     private double price;
     @ManyToOne
     private User user;
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     private Location location;
     private int contactNumber1;
@@ -32,9 +32,10 @@ public class Offer {
     private int viewCount;
     private LocalDateTime postedDate;
     private OfferStatus offerStatus;
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     private District district;
+    @JsonIgnore
     @OneToMany(mappedBy = "offer")
     private List<ReportOffer> reports;
 

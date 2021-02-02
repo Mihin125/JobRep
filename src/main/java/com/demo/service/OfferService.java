@@ -137,4 +137,8 @@ public class OfferService {
             offerRepository.save(offer);
         }
     }
+    public List<Offer> getOfferByUserId(long userId){
+        return offerRepository.findOffersByUserId(userId);
+    }
+
 }

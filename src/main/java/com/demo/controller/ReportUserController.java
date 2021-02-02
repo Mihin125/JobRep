@@ -8,15 +8,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/94mart/red-list")
+@RequestMapping("94mart/red-list")
 public class ReportUserController {
     @Autowired
     RedListService redListService;
 
-    @GetMapping()
+    @GetMapping("/admin")
     public List<RedList> getAll(){
         return redListService.getAll();
     }
+
+    @DeleteMapping("/admin/delete/{userId}")
+    public void deleteRedListUser(@PathVariable long userId){
+        redListService.deleteRedListUser(userId);
+    }
+
 
 
 }

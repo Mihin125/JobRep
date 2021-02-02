@@ -13,4 +13,8 @@ public class DistrictService {
     public District findDistrictById(long id){
         return districtRepository.findById(id).orElseThrow(NullPointerException::new);
     }
+    public District findDistrictByDistrictName(String districtName){
+        return districtRepository.findDistinctByDistrictName(districtName);
+    }
+
 }

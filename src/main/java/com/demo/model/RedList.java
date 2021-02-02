@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class RedList {//users with over 3 reports
+public class RedList { //users with over 3 reports
     @Id
     @GeneratedValue
     private long id;

@@ -26,8 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                     .csrf().disable()
                     .authorizeRequests()
                     //.antMatchers("/api/**","/swagger-ui.html","/**").permitAll()
-                    .antMatchers("/api/94mart/offer/**").hasRole("ADMIN")
-                    .antMatchers("/api/94mart/location/**").hasRole("USER")
+                    .antMatchers("/94mart/offer/admin**","/94mart/admin/**","/94mart/report-offer/admin**","/94mart/red-list/admin**","94mart/user/admin**").hasRole("ADMIN")
+                   // .antMatchers("/api/94mart/location/**").hasRole("USER")
                     .antMatchers("/v3/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
                     .antMatchers("/api/employers/sign-up/**","/api/employees/sign-up","/swagger-ui/**","/log-in/","log-out","/swagger-ui.html#/").permitAll()
 

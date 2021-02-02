@@ -12,26 +12,28 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-public class User {
+public class User {//(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @Id
     @GeneratedValue
     long id;
-    private String username;
-    private String password;
+    private String firstName;
+    private String lastName;
     @JsonIgnore
+    private String password;
+    //@JsonIgnore
     @ManyToOne
     private Location location;
-    private int contactNumber;
-    @ManyToMany(fetch = FetchType.EAGER)
+    private String contactNumber;
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
     joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")})
     private List<UserRole> roles;
     private String email;
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Offer> offers;
     @JsonIgnore
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Offer> reportedOffers;
 }

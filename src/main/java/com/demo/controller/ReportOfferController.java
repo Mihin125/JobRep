@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/94mart/report-offer")
+@RequestMapping(" n")
 public class ReportOfferController {
     @Autowired
     ReportOfferService reportOfferService;
 
-    @GetMapping("/{offerId}")
+    @GetMapping("/admin/{offerId}")
     public List<ReportOffer> getReportsByOfferId(@PathVariable long offerId){
         return reportOfferService.getReportsByOfferId(offerId);
     }
@@ -22,17 +22,17 @@ public class ReportOfferController {
     public void saveReportOffer(@RequestBody ReportOfferDto reportOfferDto){
         reportOfferService.saveReport(reportOfferDto);
     }
-    @PutMapping("/markViewed/{reportOfferId}")
+    @PutMapping("/admin/markViewed/{reportOfferId}")
     public void markAsViewed(@PathVariable long reportOfferId){
         reportOfferService.markAsViewed(reportOfferId);
     }
 
-    @GetMapping("/not-viewed")
+    @GetMapping("/admin/not-viewed")
     public List<ReportOffer> getAllNotViewed(){
         return reportOfferService.getAllUnviewed();
     }
 
-    @GetMapping("/not-viewed-number")
+    @GetMapping("/admin/not-viewed-number")
     public int getNoOfNotViewed(){
         return reportOfferService.getNoOfUnviewed();
     }

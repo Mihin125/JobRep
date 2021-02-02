@@ -5,6 +5,9 @@ import com.demo.model.DeviceCategory;
 import com.demo.model.User;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class SaveOfferDto {
@@ -20,5 +23,6 @@ public class SaveOfferDto {
     private int contactNumber2;
     private String photo;
     private long user;
+    private LocalDateTime dateTime;
 
 }

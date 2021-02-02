@@ -31,24 +31,26 @@ public class UserService {
         User exisitingUser = findByEmail(userDto.getEmail());
         if(blackListService.findByEmail(userDto.getEmail())!=null)return HttpStatus.FORBIDDEN;
         if (exisitingUser!=null)return HttpStatus.BAD_REQUEST;
-        if(userDto.getUsername()!=null &&
-            userDto.getDistrictId()!=0 &&
-            userDto.getCityId() != 0 &&
-            userDto.getContactNumber()!=0 &&
-            userDto.getPassword()!= null ) {
+        if(userDto.getFirstName()!=null &&
+                userDto.getLastName()!=null &&
+                userDto.getDistrictId()!=0 &&
+                userDto.getCityId() != 0 &&
+                userDto.getContactNumber()!=null &&
+                userDto.getPassword()!= null ) {
 
-            User user=new User();
-            user.setUsername(userDto.getUsername());
-            user.setLocation(locationService.findLocationByDistrictAndCity(userDto.getDistrictId(),userDto.getCityId()));
-            user.setRoles(userDto.getRole().stream().map(x->userRoleService.findById(x)).collect(Collectors.toList()));
-            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder(12);
-            String password =bCryptPasswordEncoder.encode(userDto.getPassword());
-            user.setPassword(password);
-            user.setContactNumber(userDto.getContactNumber());
-            user.setEmail(userDto.getEmail());
-            if (userRepository.save(user) != null) {
-                return HttpStatus.OK;
-            }
+                User user=new User();
+                user.setFirstName(userDto.getFirstName());
+                user.setLastName(user.getLastName());
+                user.setLocation(locationService.findLocationByDistrictAndCity(userDto.getDistrictId(),userDto.getCityId()));
+                user.setRoles(userDto.getRole().stream().map(x->userRoleService.findById(x)).collect(Collectors.toList()));
+                BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder(12);
+                String password =bCryptPasswordEncoder.encode(userDto.getPassword());
+                user.setPassword(password);
+                user.setContactNumber(userDto.getContactNumber());
+                user.setEmail(userDto.getEmail());
+                if (userRepository.save(user) != null) {
+                    return HttpStatus.OK;
+                }
         }return HttpStatus.BAD_REQUEST;
     }
 
@@ -59,9 +61,10 @@ public class UserService {
             return HttpStatus.NOT_FOUND;
         }
         User user = findById(userId);
-        if(updateUserDto.getUsername()!=null)user.setUsername(updateUserDto.getUsername());
+        if(updateUserDto.getFirstName()!=null)user.setFirstName(updateUserDto.getFirstName());
+        if(updateUserDto.getLastName()!=null)user.setLastName(updateUserDto.getLastName());
         if(updateUserDto.getPassword()!=null)user.setPassword(updateUserDto.getPassword());
-        if(updateUserDto.getContactNumber()!=0)user.setContactNumber(updateUserDto.getContactNumber());
+        if(updateUserDto.getContactNumber()!=null)user.setContactNumber(updateUserDto.getContactNumber());
         if(updateUserDto.getDistrictId()!=0.0)user.setLocation(locationService.findLocationByDistrictAndCity(updateUserDto.getDistrictId(),updateUserDto.getCityId()));
         if(updateUserDto.getEmail()!=null)user.setEmail(updateUserDto.getEmail());
         userRepository.save(user);

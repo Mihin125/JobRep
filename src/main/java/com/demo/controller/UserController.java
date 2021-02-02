@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/94mart/user")
+@RequestMapping("94mart/user")
 public class UserController {
     @Autowired
     UserService userService;
@@ -27,7 +27,6 @@ public class UserController {
     public HttpStatus updateUser(@PathVariable long userId,@RequestBody UserSignUpDto updateUserDto){
         return userService.updateUser(userId,updateUserDto);
     }
-
     @DeleteMapping("/admin/ban-user/{userId}")
     public void banUser(@PathVariable long userId){
         userService.banUser(userId);

@@ -19,7 +19,6 @@ public class ReportOffer {
     @JsonIgnore
     @ManyToOne
     private Offer offer;
-    @JsonIgnore
     @OneToOne
     private User reportingUser;
     private boolean viewed;

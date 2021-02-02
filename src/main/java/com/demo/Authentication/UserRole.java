@@ -1,6 +1,7 @@
 package com.demo.Authentication;
 
 import com.demo.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,21 +19,8 @@ public class UserRole {
     @GeneratedValue
     private long id;
     private String name;
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
-
-//    ADMIN(Sets.newHashSet(OFFER_READ,OFFER_WRITE,USER_READ,USER_WRITE)),
-//    INTERMEDIATE(Sets.newHashSet()),
-//    USER(Sets.newHashSet());
-//
-//    UserRole(Set<UserPermission> permissions) {
-//        this.permissions = permissions;
-//    }
-//
-//    private final Set<UserPermission> permissions;
-//
-//    public Set<UserPermission> getPermissions() {
-//        return permissions;
-//    }
 }
