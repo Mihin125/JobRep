@@ -1,7 +1,5 @@
 package com.demo.dto;
 
-import com.demo.Authentication.UserRole;
-import com.demo.model.Location;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +11,12 @@ import java.util.Set;
 @Setter
 public class UserSignUpDto {
 
-    String firstName;
-    String LastName;
-    String password;
-    long districtId; //String
-    long cityId; //String
-    String contactNumber;
-    String email;
-    List<Long> role;
+    private String firstName;
+    private String LastName;
+    private String password;
+    private String district;
+    private String city;
+    private String contactNumber;
+    private String email;
+    private List<String> role;
 }

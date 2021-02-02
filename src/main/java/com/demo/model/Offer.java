@@ -25,21 +25,20 @@ public class Offer {
     private User user;
     //@JsonIgnore
     @ManyToOne
-    private Location location;
+    private City city;
     private int contactNumber1;
     private int contactNumber2;
     private String photo;
     private int viewCount;
     private LocalDateTime postedDate;
     private OfferStatus offerStatus;
-    //@JsonIgnore
     @ManyToOne
     private District district;
     @JsonIgnore
     @OneToMany(mappedBy = "offer")
     private List<ReportOffer> reports;
 
-    public Offer(long id, String modelName, String description, DeviceCategory category, ConditionCategory conditionCategory, double price, User user, Location location, int contactNumber1, int contactNumber2, String photo, int viewCount, LocalDateTime postedDate, OfferStatus offerStatus, District district) {
+    public Offer(long id, String modelName, String description, DeviceCategory category, ConditionCategory conditionCategory, double price, User user,District district, int contactNumber1, int contactNumber2, String photo, int viewCount, LocalDateTime postedDate, OfferStatus offerStatus, City city) {
         this.id = id;
         this.modelName = modelName;
         this.description = description;
@@ -50,7 +49,8 @@ public class Offer {
         List<Offer> offerList = user.getOffers();
         offerList.add(this);
         user.setOffers(offerList);
-        this.location = location;
+        this.city = city;
+        this.district = district;
         this.contactNumber1 = contactNumber1;
         this.contactNumber2 = contactNumber2;
         this.photo = photo;

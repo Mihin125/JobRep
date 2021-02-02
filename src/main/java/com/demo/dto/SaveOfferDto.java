@@ -17,8 +17,8 @@ public class SaveOfferDto {
     private DeviceCategory category;
     private ConditionCategory conditionCategory;
     private double price;
-    private long districtId;
-    private long cityId;
+    private String district;
+    private String city;
     private int contactNumber1;
     private int contactNumber2;
     private String photo;

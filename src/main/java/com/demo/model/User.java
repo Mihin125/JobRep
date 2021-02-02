@@ -22,7 +22,9 @@ public class User {//(mappedBy = "category", cascade = CascadeType.ALL, orphanRe
     private String password;
     //@JsonIgnore
     @ManyToOne
-    private Location location;
+    private District district;
+    @ManyToOne
+    private City city;
     private String contactNumber;
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",

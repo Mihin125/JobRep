@@ -19,7 +19,9 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    LocationService locationService;
+    DistrictService districtService;
+    @Autowired
+    CityService cityService;
     @Autowired
     BlackListService blackListService;
     @Autowired
@@ -28,21 +30,22 @@ public class UserService {
     UserRoleService userRoleService;
 
     public HttpStatus signUp(UserSignUpDto userDto){
-        User exisitingUser = findByEmail(userDto.getEmail());
+        User existingUser = findByEmail(userDto.getEmail());
         if(blackListService.findByEmail(userDto.getEmail())!=null)return HttpStatus.FORBIDDEN;
-        if (exisitingUser!=null)return HttpStatus.BAD_REQUEST;
+        if (existingUser!=null)return HttpStatus.BAD_REQUEST;
         if(userDto.getFirstName()!=null &&
                 userDto.getLastName()!=null &&
-                userDto.getDistrictId()!=0 &&
-                userDto.getCityId() != 0 &&
+                userDto.getDistrict()!=null&&
+                userDto.getCity() != null &&
                 userDto.getContactNumber()!=null &&
                 userDto.getPassword()!= null ) {
 
                 User user=new User();
                 user.setFirstName(userDto.getFirstName());
                 user.setLastName(user.getLastName());
-                user.setLocation(locationService.findLocationByDistrictAndCity(userDto.getDistrictId(),userDto.getCityId()));
-                user.setRoles(userDto.getRole().stream().map(x->userRoleService.findById(x)).collect(Collectors.toList()));
+                user.setDistrict(districtService.findDistrictByDistrictName(userDto.getDistrict()));
+                user.setCity(cityService.findCityByCityName(userDto.getCity()));
+                user.setRoles(userDto.getRole().stream().map(x->userRoleService.findByName(x)).collect(Collectors.toList()));
                 BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder(12);
                 String password =bCryptPasswordEncoder.encode(userDto.getPassword());
                 user.setPassword(password);
@@ -65,7 +68,8 @@ public class UserService {
         if(updateUserDto.getLastName()!=null)user.setLastName(updateUserDto.getLastName());
         if(updateUserDto.getPassword()!=null)user.setPassword(updateUserDto.getPassword());
         if(updateUserDto.getContactNumber()!=null)user.setContactNumber(updateUserDto.getContactNumber());
-        if(updateUserDto.getDistrictId()!=0.0)user.setLocation(locationService.findLocationByDistrictAndCity(updateUserDto.getDistrictId(),updateUserDto.getCityId()));
+        if(updateUserDto.getDistrict()!=null)user.setDistrict(districtService.findDistrictByDistrictName(updateUserDto.getDistrict()));
+        if(updateUserDto.getCity()!=null)user.setCity(cityService.findCityByCityName(updateUserDto.getCity()));
         if(updateUserDto.getEmail()!=null)user.setEmail(updateUserDto.getEmail());
         userRepository.save(user);
         return HttpStatus.OK;

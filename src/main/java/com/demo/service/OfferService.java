@@ -29,6 +29,10 @@ public class OfferService {
     UserService userService;
     @Autowired
     RedListService redListService;
+    @Autowired
+    DistrictService districtService;
+    @Autowired
+    CityService cityService;
 
     public HttpStatus saveOffer(SaveOfferDto offerDto) {
         Offer offer = new Offer();
@@ -40,8 +44,8 @@ public class OfferService {
         offer.setPhoto(offerDto.getPhoto());
         offer.setContactNumber1(offerDto.getContactNumber1());
         offer.setContactNumber2(offerDto.getContactNumber2());
-        offer.setDistrict(locationService.findDistrictById(offerDto.getDistrictId()));
-        offer.setLocation(locationService.findLocationByDistrictAndCity(offerDto.getDistrictId(),offerDto.getCityId()));
+        offer.setDistrict(districtService.findDistrictByDistrictName(offerDto.getDistrict()));
+        offer.setCity(cityService.findCityByCityName(offerDto.getCity()));
         offer.setUser(userService.findById(offerDto.getUser()));
         if (offerRepository.save(offer) != null)
             return HttpStatus.OK;
@@ -67,7 +71,7 @@ public class OfferService {
         if(updateDto.getDescription()!=null)updatedOffer.setDescription(updateDto.getDescription());
         if(updateDto.getConditionCategory()!=null)updatedOffer.setConditionCategory(updateDto.getConditionCategory());
         if(updateDto.getPrice()!=0.0)updatedOffer.setPrice(updateDto.getPrice());
-        if(updateDto.getDistrictId()!=0)updatedOffer.setLocation(locationService.findLocationByDistrictAndCity(updateDto.getDistrictId(),updateDto.getCityId()));
+        if(updateDto.getCity()!=null)updatedOffer.setCity(cityService.findCityByCityName(updateDto.getCity()));
         if(updateDto.getContactNumber1()!=0)updatedOffer.setContactNumber1(updateDto.getContactNumber1());
         if(updateDto.getContactNumber2()!=0)updatedOffer.setContactNumber2(updateDto.getContactNumber2());
 
@@ -99,8 +103,11 @@ public class OfferService {
                 if(filter.getConditionCategory()!= null){
                     predicates.add(cb.equal(root.get("conditionCategory"),filter.getConditionCategory()));
                 }
-                if(filter.getLocationDistrict()!= null){
-                    predicates.add(cb.equal(root.get("location"),filter.getLocationDistrict()));
+                if(filter.getDistrict()!= null){
+                    predicates.add(cb.equal(root.get("location"),districtService.findDistrictByDistrictName(filter.getDistrict())));
+                }
+                if(filter.getCity()!= null){
+                    predicates.add(cb.equal(root.get("location"),cityService.findCityByCityName(filter.getCity())));
                 }
                 return cb.and(predicates.toArray(new Predicate[0]));
             }

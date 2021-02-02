@@ -24,4 +24,7 @@ public class District {
     @JsonIgnore
     @OneToMany(mappedBy = "district")
     List<Offer> offers;
+    @JsonIgnore
+    @OneToMany
+    List<User> users;
 }

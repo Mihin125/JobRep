@@ -2,8 +2,6 @@ package com.demo.dto;
 
 import com.demo.model.ConditionCategory;
 import com.demo.model.DeviceCategory;
-import com.demo.model.District;
-import com.demo.model.Location;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +13,6 @@ public class SearchOfferDto {
     private ConditionCategory conditionCategory;
     private double priceRangeUpper;
     private double priceRangeLower;
-    private Location locationDistrict;
-    private District district;
+    private String city;
+    private String district;
 }
