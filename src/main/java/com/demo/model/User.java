@@ -36,4 +36,6 @@ public class User {//(mappedBy = "category", cascade = CascadeType.ALL, orphanRe
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Offer> reportedOffers;
+    String username;
+
 }
