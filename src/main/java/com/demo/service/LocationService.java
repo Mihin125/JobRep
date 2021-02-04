@@ -15,19 +15,7 @@ public class LocationService {
     DistrictService districtService;
     @Autowired
     CityService cityService;
-
-//    public void saveLocation(Location location){
-//        locationRepository.save(location);
-//    }
-//
-//    public Location findLocationByDistrictAndCity(long districtId,long citId){
-//        return locationRepository.findByDistrictaAndCity(districtId,citId);
-//    }
-//
-//    public Location findLocationById(long id){
-//        return locationRepository.findById(id).orElseThrow(NullPointerException::new);
-//    }
-
+    
     public District findDistrictById(long id){
         return districtService.findDistrictById(id);
     }

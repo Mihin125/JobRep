@@ -20,6 +20,7 @@ public class UserRoleService {
     public UserRole findByName(String name){
         return userRoleRepository.findUserRoleByName(name);
     }
+
     public void save(RoleDto roleDto){
         UserRole userRole = new UserRole();
         userRole.setName(roleDto.getRole());

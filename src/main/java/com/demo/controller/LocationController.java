@@ -21,11 +21,6 @@ public class LocationController {
     DistrictService districtService;
     @Autowired
     CityService cityService;
-
-//    @GetMapping("{locationId}")
-//    public Location findLocationById(@PathVariable long locationId){
-//        return locationService.findLocationById(locationId);
-//    }
     @GetMapping("/district/{districtId}")
     public District findDistrictById(@PathVariable long districtId){
         return locationService.findDistrictById(districtId);

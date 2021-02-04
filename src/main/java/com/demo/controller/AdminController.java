@@ -24,7 +24,7 @@ public class AdminController {
         offerService.rejectOffer(offerId);
     }
     @PostMapping("/roles")
-    public void saveRole(RoleDto roleDto){userRoleService.save(roleDto);
+    public void saveRole(@RequestBody RoleDto roleDto){userRoleService.save(roleDto);
     }
 
 }

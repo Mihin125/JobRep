@@ -27,7 +27,7 @@ public class DistrictService {
 
     public void saveDistrict(DistrictDto districtDto){
         District district = new District();
-//        district.setDistrictName(districtDto.getDistrictName());
+        district.setDistrictName(districtDto.getDistrictName());
 //        List<City> cities = districtDto.getCities().stream().map(x->cityService.findCityById(x)).collect(Collectors.toList());
 //        district.setCities(cities);
         districtRepository.save(district);

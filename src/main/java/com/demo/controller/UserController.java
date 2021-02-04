@@ -31,4 +31,9 @@ public class UserController {
     public void banUser(@PathVariable long userId){
         userService.banUser(userId);
     }
+
+    @GetMapping("/email/{email}")
+    public User findByEmail(@PathVariable String email){
+        return userService.findByEmail(email);
+    }
 }
