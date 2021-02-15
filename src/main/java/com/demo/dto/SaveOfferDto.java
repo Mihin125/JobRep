@@ -24,5 +24,7 @@ public class SaveOfferDto {
     private String photo;
     private long user;
     private LocalDateTime dateTime;
+    private boolean warrantyRemaining;
+    private boolean exchangePossible;
 
 }

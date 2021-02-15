@@ -40,4 +40,5 @@ public class User {//(mappedBy = "category", cascade = CascadeType.ALL, orphanRe
     private List<Offer> reportedOffers;
     String username;
 
+
 }

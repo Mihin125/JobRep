@@ -7,17 +7,22 @@ import com.demo.model.OfferStatus;
 import com.demo.model.RedList;
 import com.demo.repository.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
@@ -47,6 +52,9 @@ public class OfferService {
         offer.setDistrict(districtService.findDistrictByDistrictName(offerDto.getDistrict()));
         offer.setCity(cityService.findCityByCityName(offerDto.getCity()));
         offer.setUser(userService.findById(offerDto.getUser()));
+        offer.setExchangePossible(offerDto.isExchangePossible());
+        offer.setWarrantyRemaining(offerDto.isWarrantyRemaining());
+        offer.setPostedDate(offerDto.getDateTime());
         if (offerRepository.save(offer) != null)
             return HttpStatus.OK;
         return HttpStatus.BAD_REQUEST;
@@ -104,15 +112,25 @@ public class OfferService {
                     predicates.add(cb.equal(root.get("conditionCategory"),filter.getConditionCategory()));
                 }
                 if(filter.getDistrict()!= null){
-                    predicates.add(cb.equal(root.get("location"),districtService.findDistrictByDistrictName(filter.getDistrict())));
+                    predicates.add(cb.equal(root.get("district"),districtService.findDistrictByDistrictName(filter.getDistrict())));
                 }
                 if(filter.getCity()!= null){
-                    predicates.add(cb.equal(root.get("location"),cityService.findCityByCityName(filter.getCity())));
+                    predicates.add(cb.equal(root.get("city"),cityService.findCityByCityName(filter.getCity())));
                 }
+
+//                TypedQuery<Object> typedQuery=cb.createQuery();;
+
                 return cb.and(predicates.toArray(new Predicate[0]));
             }
         });
-        return offers;
+        switch (filter.getSortedBy()){
+            case "Newest first": return offers.stream().sorted(Comparator.comparing(Offer::getPostedDate).reversed()).collect(Collectors.toList());
+            case "Oldest first": return offers.stream().sorted(Comparator.comparing(Offer::getPostedDate)).collect(Collectors.toList());
+            case "High to Low" : return offers.stream().sorted(Comparator.comparing(Offer::getPrice).reversed()).collect(Collectors.toList());
+            case "Low to High" : return offers.stream().sorted(Comparator.comparing(Offer::getPrice)).collect(Collectors.toList());
+
+        }
+        return offers.stream().sorted(Comparator.comparing(Offer::getPostedDate)).collect(Collectors.toList());
     }
     public void deleteOffer(long offerId){
         offerRepository.delete(findById(offerId));

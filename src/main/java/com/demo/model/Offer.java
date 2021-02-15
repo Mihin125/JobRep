@@ -37,8 +37,10 @@ public class Offer {
     @JsonIgnore
     @OneToMany(mappedBy = "offer")
     private List<ReportOffer> reports;
+    private boolean exchangePossible;
+    private boolean warrantyRemaining;
 
-    public Offer(long id, String modelName, String description, DeviceCategory category, ConditionCategory conditionCategory, double price, User user,District district, int contactNumber1, int contactNumber2, String photo, int viewCount, LocalDateTime postedDate, OfferStatus offerStatus, City city) {
+    public Offer(long id, String modelName,boolean exchangePossible,boolean warrantyRemaining, String description, DeviceCategory category, ConditionCategory conditionCategory, double price, User user,District district, int contactNumber1, int contactNumber2, String photo, int viewCount, LocalDateTime postedDate, OfferStatus offerStatus, City city) {
         this.id = id;
         this.modelName = modelName;
         this.description = description;
@@ -58,6 +60,8 @@ public class Offer {
         this.postedDate = postedDate;
         this.offerStatus = offerStatus;
         this.district = district;
+        this.exchangePossible = exchangePossible;
+        this.warrantyRemaining = warrantyRemaining;
     }
 
     public Offer() {

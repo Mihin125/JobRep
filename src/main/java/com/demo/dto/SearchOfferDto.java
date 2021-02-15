@@ -15,4 +15,6 @@ public class SearchOfferDto {
     private double priceRangeLower;
     private String city;
     private String district;
+    private String SortedBy;
+
 }
