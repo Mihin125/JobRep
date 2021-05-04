@@ -1,4 +1,4 @@
-package com.demo.model;
+package com.demo.Authentication;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,13 +13,7 @@ import javax.persistence.Id;
 public class BlackList {
     @Id
     @GeneratedValue
-    private long id;
-    private String email;
-
-    public BlackList() {
-    }
-
-    public BlackList(String email) {
-        this.email = email;
-    }
+    private int id;
+    private String blackListedToken;
+    private String username;
 }

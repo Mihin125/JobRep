@@ -158,7 +158,7 @@ public class OfferService {
             List<Offer> reports = offer.getUser().getReportedOffers();
             reports.add(offer);
             offer.getUser().setReportedOffers(reports);
-            if (reports.size()==3)redListService.save(new RedList(offer.getUser(), LocalDateTime.now()));
+            if (reports.size()==3)redListService.save(new RedList(offer.getUser().getId(),offer.getUser().getEmail(),LocalDateTime.now()));
             offerRepository.save(offer);
         }
     }

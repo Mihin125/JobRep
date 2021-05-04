@@ -1,18 +1,15 @@
 package com.demo.service;
 
-import com.demo.Authentication.UserRole;
 import com.demo.dto.UserSignUpDto;
-import com.demo.model.BlackList;
 import com.demo.model.Offer;
+import com.demo.model.RedList;
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +21,7 @@ public class UserService {
     @Autowired
     CityService cityService;
     @Autowired
-    BlackListService blackListService;
+    ResListService resListService;
     @Autowired
     OfferService offerService;
     @Autowired
@@ -32,7 +29,7 @@ public class UserService {
 
     public HttpStatus signUp(UserSignUpDto userDto){
         User existingUser = findByEmail(userDto.getEmail());
-        if(blackListService.findByEmail(userDto.getEmail())!=null)return HttpStatus.FORBIDDEN;
+        if(resListService.findByEmail(userDto.getEmail())!=null)return HttpStatus.FORBIDDEN;
         if (existingUser!=null)return HttpStatus.BAD_REQUEST;
         if(userDto.getFirstName()!=null &&
                 userDto.getLastName()!=null &&
@@ -44,14 +41,15 @@ public class UserService {
                 User user=new User();
                 user.setFirstName(userDto.getFirstName());
                 user.setLastName(user.getLastName());
-                user.setDistrict(districtService.findDistrictByDistrictName(userDto.getDistrict()));
-                user.setCity(cityService.findCityByCityName(userDto.getCity()));
+//                user.setDistrict(districtService.findDistrictByDistrictName(userDto.getDistrict()));
+//                user.setCity(cityService.findCityByCityName(userDto.getCity()));
                 user.setRoles(userDto.getRole().stream().map(x->userRoleService.findByName(x)).collect(Collectors.toList()));
                 BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder(12);
                 String password =bCryptPasswordEncoder.encode(userDto.getPassword());
                 user.setPassword(password);
                 user.setContactNumber(userDto.getContactNumber());
                 user.setEmail(userDto.getEmail());
+                user.setUsername(userDto.getEmail());
                 if (userRepository.save(user) != null) {
                     return HttpStatus.OK;
                 }
@@ -71,7 +69,7 @@ public class UserService {
         if(updateUserDto.getContactNumber()!=null)user.setContactNumber(updateUserDto.getContactNumber());
         if(updateUserDto.getDistrict()!=null)user.setDistrict(districtService.findDistrictByDistrictName(updateUserDto.getDistrict()));
         if(updateUserDto.getCity()!=null)user.setCity(cityService.findCityByCityName(updateUserDto.getCity()));
-        if(updateUserDto.getEmail()!=null)user.setEmail(updateUserDto.getEmail());
+        // if(updateUserDto.getEmail()!=null)user.setEmail(updateUserDto.getEmail());
         userRepository.save(user);
         return HttpStatus.OK;
     }
@@ -80,7 +78,7 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(NullPointerException::new);
     }
 
-    public User findByusername(String username){
+    public User findByUsername(String username){
         return userRepository.findByUsername(username);
     }
 
@@ -96,7 +94,7 @@ public class UserService {
     }
 
     public void banUser(long userId){
-        blackListService.save(new BlackList(findById(userId).getEmail()));
+        resListService.save(new RedList(findById(userId).getEmail()));
         deleteUser(userId);
     }
 }

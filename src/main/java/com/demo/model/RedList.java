@@ -2,29 +2,33 @@ package com.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-public class RedList { //users with over 3 reports
+public class RedList {
     @Id
     @GeneratedValue
     private long id;
-    @OneToOne
-    private User user;
+    private String email;
     private LocalDateTime dateTime;
 
-    public RedList(User user, LocalDateTime dateTime) {
-        this.user = user;
-        this.dateTime = dateTime;
+    public RedList() {
     }
 
-    public RedList() {
+    public RedList(String email) {
+        this.email = email;
+    }
+
+    public RedList(long id, String email, LocalDateTime dateTime) {
+        this.id = id;
+        this.email = email;
+        this.dateTime = dateTime;
     }
 }
